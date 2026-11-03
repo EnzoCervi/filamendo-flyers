@@ -9,11 +9,13 @@ Flyers doble faz que van dentro de los kits de juguetes sensoriales impresos en 
 
 ## Archivos (`output/`)
 
-- `Filamendo_kit_sensorial_A6_105x148_frente-dorso_sangrado3mm.pdf`: pág. 1 frente, pág. 2 dorso, 3 mm de sangrado (con TrimBox/BleedBox definidos).
-- `Filamendo_kit_sensorial_A7_74x105_frente-dorso_sangrado3mm.pdf`: lo mismo en A7.
-- `Filamendo_kit_sensorial_A6_105x148_imprimir_A4_4xhoja.pdf`: 4 A6 por A4, frente y dorso.
-- `Filamendo_kit_sensorial_A7_74x105_imprimir_A4_8xhoja.pdf`: 8 A7 por A4, frente y dorso.
-- `vista_previa/`: PNG de cada cara a 300 dpi (tamaño final) y de cada hoja A4.
+**Para imprimir en casa (A4):**
+- `IMPRIMIR_bolsa_grande_16x24_(4_flyers_por_hoja).pdf`: flyers A6, página 1 = frente, página 2 = dorso.
+- `IMPRIMIR_bolsa_chica_10x15_(8_flyers_por_hoja).pdf`: flyers A7, página 1 = frente, página 2 = dorso.
+
+**Sólo si los mandás a una imprenta:** `imprenta/` tiene cada flyer suelto con 3 mm de sangrado.
+
+`vista_previa/`: PNG de cada cara y de cada hoja, para revisar.
 
 ## Cómo imprimir las hojas A4
 

@@ -718,12 +718,16 @@ def main():
     subprocess.run(["node", str(ROOT / "src" / "render.js"), str(BUILD / "jobs.json")], check=True, cwd=ROOT)
 
     names = {"a6": "A6_105x148", "a7": "A7_74x105"}
+    bolsas = {"a6": "bolsa_grande_16x24_(4_flyers_por_hoja)", "a7": "bolsa_chica_10x15_(8_flyers_por_hoja)"}
+    for old in OUT.glob("*.pdf"):
+        old.unlink()
     for fmt in FORMATS:
+        (OUT / "imprenta").mkdir(exist_ok=True)
         merge([BUILD / f"{fmt}_frente.pdf", BUILD / f"{fmt}_dorso.pdf"],
-              OUT / f"Filamendo_kit_sensorial_{names[fmt]}_frente-dorso_sangrado3mm.pdf", FORMATS[fmt])
+              OUT / "imprenta" / f"Filamendo_kit_sensorial_{names[fmt]}_frente-dorso_sangrado3mm.pdf", FORMATS[fmt])
         n = 4 if fmt == "a6" else 8
         merge([BUILD / f"hoja_{fmt}_frente.pdf", BUILD / f"hoja_{fmt}_dorso.pdf"],
-              OUT / f"Filamendo_kit_sensorial_{names[fmt]}_imprimir_A4_{n}xhoja.pdf")
+              OUT / f"IMPRIMIR_{bolsas[fmt]}.pdf")
 
     prev = OUT / "vista_previa"
     prev.mkdir(exist_ok=True)
