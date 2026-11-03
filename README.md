@@ -4,8 +4,8 @@ Flyers doble faz que van dentro de los kits de juguetes sensoriales impresos en 
 
 | Bolsa doypack | Flyer | Contenido |
 |---|---|---|
-| 16 × 24 cm | A6 (105 × 148 mm) | versión completa: 4 beneficios, 5 tipos de juguete, cuidados |
-| 10 × 15 cm | A7 (74 × 105 mm) | versión resumida: 4 beneficios cortos, 4 tipos |
+| 16 × 24 cm | A6 (105 × 148 mm) | versión completa: ¿Qué son?, 4 beneficios, 5 tipos de juguete con foto, cuidados |
+| 10 × 15 cm | A7 (74 × 105 mm) | versión resumida: ¿Qué son? corto, 4 beneficios, 4 tipos con foto, cuidados |
 
 ## Archivos (`output/`)
 
@@ -38,4 +38,5 @@ Textos, colores y tamaños están en `src/flyers.py` (diccionarios `BENEFICIOS` 
 
 - Tipografía: Source Serif 4 (Adobe, licencia SIL OFL, en `assets/fonts/`).
 - `assets/filamendo_isotipo_tinta.svg` se reconstruyó con la geometría vectorial exacta de la espiral del sticker redondo (el SVG no llegó adjunto). Si tenés el original, reemplazalo con el mismo nombre y los ids `tinta` y `ultima-vuelta` en los trazos.
-- Todas las ilustraciones son vectores dibujados por código, sin imágenes.
+- Las fichas del dorso usan fotos reales de los juguetes (`assets/fotos/`, recortadas con `src/recortar_fotos.py`). Los íconos, los arcos y la espiral son vectores dibujados por código.
+- Para cambiar una foto: reemplazá el JPG en `assets/fotos/` (cuadrado, mismo nombre) y corré `python3 src/flyers.py`.

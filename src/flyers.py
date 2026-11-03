@@ -248,23 +248,23 @@ BENEFICIOS = {
 }
 
 TIPOS = {
-    "giratorios": dict(ill=ill_giratorios, color=NARANJA, nombre="Giratorios",
+    "giratorios": dict(foto="giratorios_engranajes", ill=ill_giratorios, color=NARANJA, nombre="Giratorios",
                        ej="engranajes y espirales",
                        a6="Hacelos girar y mirá cómo se mueve todo junto.",
                        a7="Giralos y mirá cómo se mueven."),
-    "articulados": dict(ill=ill_articulados, color=CIAN, nombre="Articulados y flexibles",
+    "articulados": dict(foto="articulados_pulpo", ill=ill_articulados, color=CIAN, nombre="Articulados y flexibles",
                         nombre_a7="Articulados",
                         ej="pulpos, cadenas y serpientes",
                         a6="Se doblan, se enroscan y cambian de forma.",
                         a7="Se doblan y cambian de forma."),
-    "texturas": dict(ill=ill_texturas, color=MAGENTA, nombre="De texturas",
+    "texturas": dict(foto="texturas_huevo", ill=ill_texturas, color=MAGENTA, nombre="De texturas",
                      ej="relieves, ranuras y puntitos",
                      a6="Para recorrer con los dedos y descubrir cada superficie.",
                      a7="Para recorrer con los dedos."),
-    "apretar": dict(ill=ill_apretar, color=VERDE, nombre="Para apretar",
+    "apretar": dict(foto="texturas_pelota", ill=ill_apretar, color=VERDE, nombre="Para apretar",
                     ej="piezas blanditas y flexibles",
                     a6="Apretá, soltá y volvé a empezar, las veces que quieras."),
-    "clic": dict(ill=ill_clic, color=LILA, nombre="Cubos y encastres con clic",
+    "clic": dict(foto="clic_cubo", ill=ill_clic, color=LILA, nombre="Cubos y encastres con clic",
                  nombre_a7="Encastres con clic",
                  ej="botones, trabas y encastres",
                  a6="Se encastran, se traban y hacen ese clic que engancha.",
@@ -343,14 +343,14 @@ p{{line-height:1.32}}
 .tipo{{display:flex;align-items:center}}
 .tile{{flex:none;border-radius:2.8mm;display:flex;align-items:center;justify-content:center}}
 .tile svg{{width:84%;height:84%}}
+.tile.foto img{{display:block;width:100%;height:100%;object-fit:cover;border-radius:2.3mm}}
+.quees h2{{font-family:'Source Serif 4 Display';font-weight:700;line-height:1}}
+.quees{{border-left:.9mm solid {AMARILLO}}}
+.quees p{{font-family:'Source Serif 4';font-weight:600;line-height:1.3}}
+.quees p em{{font-style:italic;color:{CIAN_P}}}
 .tipo h3{{font-family:'Source Serif 4';font-weight:600;line-height:1.1}}
 .tipo .ej{{font-style:italic;color:{CIAN_P};line-height:1.2}}
 .tipo p{{line-height:1.25}}
-.aviso{{display:flex;align-items:center;line-height:1.25}}
-.aviso b{{font-weight:600}}
-.badge{{flex:none;border-radius:50%;background:{TINTA};color:{PAPEL};display:flex;
-        align-items:center;justify-content:center;font-family:'Source Serif 4';font-weight:700;
-        letter-spacing:-.02em}}
 .pie{{background:{TINTA};color:{PAPEL};display:flex;align-items:center}}
 .pie .hecho{{font-family:'Source Serif 4';font-weight:600;line-height:1.15}}
 .pie .hecho em{{font-style:italic;font-weight:600;color:{tint(CIAN, .25)}}}
@@ -395,18 +395,12 @@ def tipo_row(key: str, fmt: str, s: dict) -> str:
     linea = t.get(fmt, t["a6"])
     return (
         f'<div class="tipo" style="gap:{s["gap"]}mm">'
-        f'<div class="tile" style="--tile-bg:{bg};background:{bg};width:{s["tile"]}mm;height:{s["tile"]}mm">'
-        f'{ill(t["ill"]())}</div>'
+        f'<div class="tile foto" style="background:{col};width:{s["tile"]}mm;height:{s["tile"]}mm;padding:{s["marco"]}mm">'
+        f'<img src="{(ASSETS / "fotos" / (t["foto"] + ".jpg")).as_uri()}" alt="{nombre}"></div>'
         f'<div><h3 style="font-size:{s["h3"]}pt">{nombre}</h3>'
         f'<div class="ej" style="font-size:{s["ej"]}pt">{t["ej"]}</div>'
         f'<p style="font-size:{s["p"]}pt;margin-top:{s["gap_p"]}mm">{linea}</p></div></div>'
     )
-
-
-def aviso(s: dict) -> str:
-    return (f'<div class="aviso" style="gap:{s["gap"]}mm;font-size:{s["pt"]}pt">'
-            f'<div class="badge" style="width:{s["d"]}mm;height:{s["d"]}mm;font-size:{s["bpt"]}pt">3+</div>'
-            f'<div><b>Contiene piezas pequeñas.</b> No apto para menores de 3 años.</div></div>')
 
 
 # ---------------------------------------------------------------------------
@@ -433,19 +427,18 @@ def a6_frente(w, h):
       <span class="kit" style="font-size:19pt;margin-bottom:1.2mm">Kit</span><span class="hl">sensorial</span></h1>
     <p class="lead" style="left:{m}mm;top:48.6mm;width:{cw}mm;font-size:9.6pt;line-height:1.3">
       Juguetes para girar, doblar, apretar y encastrar.<br>Hechos en 3D, capa por capa.</p>
-    <div style="left:{m}mm;top:60.4mm;width:{cw}mm">
-      <div class="volanta" style="font-size:5.9pt;margin-bottom:1.3mm">¿Qué son?</div>
-      <p style="font-size:7.6pt">Son juguetes pensados para las manos. No tienen reglas ni pantallas:
+    <div class="quees" style="left:{m}mm;top:60mm;width:{cw}mm;padding-left:2.6mm">
+      <h2 style="font-size:13pt;margin-bottom:1.3mm">¿Qué son?</h2>
+      <p style="font-size:7.9pt">Son juguetes <em>pensados para las manos</em>. No tienen reglas ni pantallas:
       se tocan, se mueven, hacen clic. Mientras las manos juegan, la cabeza se acomoda.</p>
     </div>
-    <div style="left:{m}mm;top:78.6mm;width:{cw}mm">
+    <div style="left:{m}mm;top:81.4mm;width:{cw}mm">
       <div class="volanta" style="font-size:5.9pt;margin-bottom:1.8mm">¿Por qué suman?</div>
       <div class="ben" style="gap:2.2mm">
         {''.join(benefit_card(k, 'a6', dict(pad=2.3, ic=7.4, h3=8.4, p=6.7, gap_h=1.8, gap_p=1.2)) for k in BENEFICIOS)}
       </div>
     </div>
-    <div style="left:{m}mm;top:{h - m - 6.6}mm;width:{cw}mm;display:flex;justify-content:space-between;align-items:center">
-      {aviso(dict(gap=1.6, pt=6.1, d=5.6, bpt=6.6))}
+    <div style="left:{m}mm;top:{h - m - 4.4}mm;width:{cw}mm;display:flex;justify-content:flex-end;align-items:center">
       <div class="dalavuelta" style="font-size:7pt;white-space:nowrap">Dalo vuelta {flecha(5)}</div>
     </div>
     """
@@ -455,7 +448,7 @@ def a6_dorso(w, h):
     m = 7.0
     cw = w - 2 * m
     pie_h = 19.0
-    s = dict(gap=3.2, tile=15.2, h3=8.6, ej=6.6, p=6.9, gap_p=0.6)
+    s = dict(marco=0.55, gap=3.2, tile=15.2, h3=8.6, ej=6.6, p=6.9, gap_p=0.6)
     return f"""
     <div style="left:{m}mm;top:{m}mm;width:{cw}mm">
       <div class="volanta" style="font-size:5.9pt;margin-bottom:1.4mm">Qué hay en tu kit</div>
@@ -485,16 +478,17 @@ def a7_frente(w, h):
     <div style="left:{m}mm;top:{m}mm">{isotipo(10)}</div>
     <h1 style="left:{m}mm;top:18.4mm;width:{cw}mm;font-size:27pt">
       <span class="kit" style="font-size:13.5pt;margin-bottom:.8mm">Kit</span><span class="hl">sensorial</span></h1>
-    <p class="lead" style="left:{m}mm;top:35.6mm;width:{cw}mm;font-size:7.6pt;line-height:1.28">
+    <p class="lead" style="left:{m}mm;top:35.2mm;width:{cw}mm;font-size:7.6pt;line-height:1.28">
       Para girar, doblar, apretar y encastrar.<br>Hechos en 3D, capa por capa.</p>
-    <div style="left:{m}mm;top:48mm;width:{cw}mm">
+    <div class="quees" style="left:{m}mm;top:45.4mm;width:{cw}mm;padding-left:2mm;border-left-width:.7mm">
+      <h2 style="font-size:9.6pt;margin-bottom:.9mm">¿Qué son?</h2>
+      <p style="font-size:6.5pt">Juguetes <em>pensados para las manos</em>: se tocan, se mueven y hacen clic.</p>
+    </div>
+    <div style="left:{m}mm;top:59.2mm;width:{cw}mm">
       <div class="volanta" style="font-size:5.1pt;margin-bottom:1.5mm">¿Por qué suman?</div>
       <div class="ben" style="gap:1.8mm">
         {''.join(benefit_card(k, 'a7', dict(pad=2.1, ic=6.6, h3=7, p=6.3, gap_h=1.4, gap_p=1.3)) for k in BENEFICIOS)}
       </div>
-    </div>
-    <div style="left:{m}mm;top:{h - m - 5}mm;width:{cw}mm">
-      {aviso(dict(gap=1.3, pt=5.4, d=4.8, bpt=5.6))}
     </div>
     """
 
@@ -503,7 +497,7 @@ def a7_dorso(w, h):
     m = 5.2
     cw = w - 2 * m
     pie_h = 14.6
-    s = dict(gap=2.6, tile=13.4, h3=7.5, ej=6, p=6.3, gap_p=0.4)
+    s = dict(marco=0.5, gap=2.6, tile=13.4, h3=7.5, ej=6, p=6.3, gap_p=0.4)
     return f"""
     <div style="left:{m}mm;top:{m}mm;width:{cw}mm">
       <div class="volanta" style="font-size:5pt;margin-bottom:1.1mm">Qué hay en tu kit</div>
