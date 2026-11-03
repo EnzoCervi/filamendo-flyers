@@ -13,6 +13,8 @@ Flyers doble faz que van dentro de los kits de juguetes sensoriales impresos en 
 - `IMPRIMIR_bolsa_grande_16x24_(4_flyers_por_hoja).pdf`: flyers A6, página 1 = frente, página 2 = dorso.
 - `IMPRIMIR_bolsa_chica_10x15_(8_flyers_por_hoja).pdf`: flyers A7, página 1 = frente, página 2 = dorso.
 
+- `IMPRIMIR_stickers_bolsa_grande_y_chica.pdf`: stickers redondos para el frente de la bolsa. Página 1: bolsa grande (Ø 8 cm, 6 por hoja). Página 2: bolsa chica (Ø 5 cm, 15 por hoja). Es el sticker original escalado (vector, sin redibujar). Imprimir al 100 % en papel autoadhesivo A4 y cortar por la línea punteada. Se generan con `python3 src/stickers.py`.
+
 **Sólo si los mandás a una imprenta:** `imprenta/` tiene cada flyer suelto con 3 mm de sangrado.
 
 `vista_previa/`: PNG de cada cara y de cada hoja, para revisar.
