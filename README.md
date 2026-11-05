@@ -17,7 +17,7 @@ Flyers doble faz que van dentro de los kits de juguetes sensoriales impresos en 
 
 - `instagram/`: frente y dorso del flyer en JPG 1080 × 1350 (formato vertical 4:5 de Instagram). Se generan con `python3 src/instagram.py`.
 
-- `catalogo_navidad/`: carrusel de Instagram de Navidad (9 placas JPG 1080 × 1350, en orden). Productos, textos y precios en `SLIDES` de `src/catalogo_navidad.py`; fotos recortadas en `assets/navidad/` con `src/navidad_recortes.py`. Se generan con `python3 src/catalogo_navidad.py`.
+- `catalogo_navidad/`: carrusel de Instagram de Navidad (12 placas JPG 1080 × 1350, en orden). Productos, textos y precios en `SLIDES` de `src/catalogo_navidad.py`; fotos recortadas en `assets/navidad/` con `src/navidad_recortes.py`. Se generan con `python3 src/catalogo_navidad.py`.
 
 **Sólo si los mandás a una imprenta:** `imprenta/` tiene cada flyer suelto con 3 mm de sangrado.
 

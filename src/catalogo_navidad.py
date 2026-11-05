@@ -14,7 +14,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageFilter, ImageOps
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from flyers import FONT_FACES, isotipo  # noqa: E402
@@ -50,62 +50,80 @@ SLIDES = [
     dict(tipo="hero", volanta="Los más tiernos", titulo="Colección", titulo_it="tejida",
          bajada="Figuras con textura de punto, como tejidas a mano.",
          items=[
-             P("Bandeja tejida", "bandeja_tejida",
-               "Reno, Papá Noel, arbolito, muñeco de nieve y galletita sobre su bandeja. Un centro de mesa que enamora.",
-               pos="center 40%"),
-             P("Papá Noel tejido", "santa_tejido", "Con gorro y botas.", pos="center 30%"),
-             P("Reno tejido", "reno_tejido", "Nariz roja incluida.", pos="center 40%"),
-             P("Arbolito tejido", "arbol_tejido", "Con estrella dorada.", pos="center 35%"),
+             P("Kit en bandeja", "kit_bandeja",
+               "Papá Noel, reno y arbolito tejidos sobre su bandeja ondulada. Un centro de mesa que enamora."),
+             P("Papá Noel tejido", "santa_tejido", "Con gorro y botas."),
+             P("Reno tejido", "reno_tejido", "Nariz roja incluida."),
+             P("Arbolito tejido", "arbol_tejido", "Con estrella dorada."),
+         ]),
+    dict(tipo="grilla", volanta="Tejidos para colgar", titulo="Adornos", titulo_it="tejidos",
+         bajada="Textura de punto y trenzas para el arbolito.",
+         items=[
+             P("Bola tejida lágrima", "bola_tejida", "Con trenzas, en forma de gota."),
+             P("Esferas tejidas", "esferas_tejidas", "Trenzadas, en tres tonos a elección."),
+             P("Copo tejido", "copo_tejido", "Copo de nieve con puntos trenzados."),
+             P("Marco de fotos tejido", "marco_tejido", "Esfera con tu foto preferida adentro."),
+         ]),
+    dict(tipo="duo", volanta="Tejidos para la mesa", titulo="Bandeja", titulo_it="y arbolitos",
+         bajada="Para completar la mesa con el mismo estilo.",
+         items=[
+             P("Bandeja tejida", "bandeja_crochet", "Borde trenzado, como de crochet, con patitas. Para servir o decorar."),
+             P("Arbolitos tejidos", "arboles_tejidos", "Con maceta y estrella. Se arman a rosca."),
          ]),
     dict(tipo="filas", volanta="Para regalar", titulo="Renos", titulo_it="navideños",
          bajada="Los preferidos de grandes y chicos.",
          items=[
-             P("Rodolfo", "rodolfo", "Reno sentado con bufanda roja. Para la mesa, un estante o el escritorio.",
-               pos="center 35%"),
-             P("Trío de renitos", "renos_trio", "Tres renitos con gorro, orejeras y bufanda. Se venden juntos o por separado.",
-               pos="center 45%"),
-             P("Reno Ferrero", "reno_ferrero", "Poné un bombón en el centro y el regalo está listo. Bombón no incluido.",
-               pos="center 55%"),
+             P("Rodolfo", "rodolfo", "Reno sentado con bufanda roja. Para la mesa, un estante o el escritorio."),
+             P("Trío de renitos", "renos_trio", "Tres renitos con gorro, orejeras y bufanda. Se venden juntos o por separado."),
+             P("Reno con trineo", "reno_trineo", "El trineo es un cuenco: para dulces, piñas o lo que quieras."),
          ]),
     dict(tipo="grilla", volanta="El centro de la Navidad", titulo="Pesebres", titulo_it="",
          bajada="Del más simple al más completo.",
          items=[
-             P("Sagrada Familia", "natividad_minimalista", "Líneas simples, en una sola pieza.", pos="center 40%"),
-             P("Pesebre estrella", "natividad_estrella", "María, José y el Niño dentro de una estrella.", pos="center 45%"),
-             P("Pesebre tejido", "pesebre_tejido_pareja", "María, José y el Niño con textura de tejido.", pos="center 40%"),
-             P("Pesebre completo", "pesebre_tejido_completo", "Con establo, Reyes Magos y animalitos.", pos="center 55%"),
+             P("Sagrada Familia", "natividad_minimalista", "Líneas simples, en una sola pieza."),
+             P("Pesebre estrella", "natividad_estrella", "María, José y el Niño dentro de una estrella."),
+             P("Pesebre tejido", "pesebre_tejido_pareja", "María, José y el Niño con textura de tejido."),
+             P("Pesebre completo", "pesebre_tejido_completo", "Con establo, Reyes Magos y animalitos."),
          ]),
     dict(tipo="grilla", volanta="Mesa navideña", titulo="Para servir", titulo_it="y compartir",
          bajada="Detalles que arman la mesa del 24.",
          items=[
-             P("Bandeja aldea", "bandeja_caramelos", "Con casitas y pinos. Para bombones y caramelos.", pos="center 55%"),
-             P("Bandejas pino", "bandejas_arbol", "Con forma de árbol, apilables. Ideales para picar.", pos="center 50%"),
-             P("Posavasos con moño", "posavasos_lazo", "Coronitas con moño, para vasos o velas.", pos="center 55%"),
-             P("Servilletero Noel", "servilletero_noel", "Papá Noel sonriente que sostiene las servilletas.", pos="center 40%"),
+             P("Cuenco Papá Noel", "cuenco_noel", "Con cinturón y botas. Para galletitas y dulces."),
+             P("Servilletero Noel", "servilletero_noel", "Papá Noel sonriente que sostiene las servilletas."),
+             P("Bandeja aldea", "bandeja_caramelos", "Con casitas y pinos. Para bombones y caramelos."),
+             P("Bandejas pino", "bandejas_arbol", "Con forma de árbol, apilables. Ideales para picar."),
          ]),
-    dict(tipo="grilla", volanta="Decoración", titulo="Para decorar", titulo_it="la casa",
-         bajada="Piezas para la mesa, la repisa o la entrada.",
+    dict(tipo="grilla", volanta="Decoración", titulo="Árboles", titulo_it="y figuras",
+         bajada="Para la mesa, la repisa o la entrada.",
          items=[
-             P("Muñeco de nieve", "muneco_japandi", "Acanalado, con galera y bufanda.", pos="center 40%"),
-             P("Gnomo navideño", "gnomo", "Gorro largo y nariz de madera.", pos="center 45%"),
-             P("Arbolitos espiral", "arbol_espiral", "Set de tres, en espiral con estrella.", pos="center 45%"),
-             P("Cascanueces", "cascanueces", "Clásicos soldaditos, en tus colores.", pos="center 40%"),
+             P("Árbol acanalado", "arbol_acanalado", "Minimalista, en espiral. En dos tamaños."),
+             P("Arbolitos espiral", "arbol_espiral", "Set de tres, en espiral con estrella."),
+             P("Muñeco de nieve", "muneco_japandi", "Acanalado, con galera y bufanda."),
+             P("Gnomo navideño", "gnomo", "Gorro largo y nariz de madera."),
          ]),
-    dict(tipo="grilla", volanta="Para el árbol", titulo="Bolas", titulo_it="y adornos",
+    dict(tipo="grilla", volanta="Decoración", titulo="Luz", titulo_it="y clásicos",
+         bajada="Para dar calidez a la casa estas fiestas.",
+         items=[
+             P("Casita piña", "casita_pina", "Para velas tipo té: la ventanita se ilumina."),
+             P("Portavelas copo", "portavelas_copo", "Copo de nieve para velas tipo té."),
+             P("Cartel Feliz Navidad", "cartel_feliz_navidad", "Con copo de nieve, para la mesa o la repisa."),
+             P("Cascanueces", "cascanueces", "Clásicos soldaditos, en tus colores."),
+         ]),
+    dict(tipo="grilla", volanta="Para el árbol", titulo="Bolas", titulo_it="y colgantes",
          bajada="Para colgar en el arbolito este año.",
          items=[
-             P("Bola con nombre", "bola_nombre", "Personalizada con el nombre que quieras.", pos="center 50%"),
-             P("Bolas geométricas", "bolas_modernas", "Set de diseños calados y en relieve.", pos="center 50%"),
-             P("Bola japandi", "bola_japandi", "Acanalada, con textura. También se abre.", pos="center 45%"),
-             P("Copos de nieve", "copos", "Distintos diseños, para colgar.", pos="center 50%"),
+             P("Bola con nombre", "bola_nombre", "Personalizada con el nombre que quieras."),
+             P("Colgantes con frase", "bolas_frase", "Con la frase o el nombre que elijas."),
+             P("Bola japandi", "bola_japandi", "Acanalada, con textura. También se abre."),
+             P("Bolas geométricas", "bolas_modernas", "Set de diseños calados y en relieve."),
          ]),
-    dict(tipo="filas", volanta="Regalitos", titulo="Detalles", titulo_it="que suman",
+    dict(tipo="grilla", volanta="Regalitos", titulo="Detalles", titulo_it="que suman",
          bajada="Para sumar a la decoración o regalar.",
          items=[
-             P("Cartel Feliz Navidad", "cartel_feliz_navidad", "Con copo de nieve. Para la mesa, la repisa o la vidriera.",
-               pos="center 50%"),
-             P("Portavelas copo", "portavelas_copo", "Copo de nieve para velas tipo té. Vela no incluida.", pos="center 55%"),
-             P("Palillos navideños", "palillos", "Set con regalo, copo, pino, muérdago y bastón.", pos="center 50%"),
+             P("Reno Ferrero", "reno_ferrero", "Con un bombón adentro, listo para regalar."),
+             P("Copos de nieve", "copos", "Distintos diseños, para colgar."),
+             P("Posavasos con moño", "posavasos_lazo", "Coronitas con moño, para vasos o velas."),
+             P("Palillos navideños", "palillos", "Set con regalo, copo, pino, acebo y bastón."),
          ]),
     dict(tipo="cierre"),
 ]
@@ -135,10 +153,73 @@ def estrella(size, color):
             f'<polygon points="{" ".join(pts)}" fill="{color}"/></svg>')
 
 
+ROI = json.loads((FOTOS / "roi.json").read_text())
+
+
+def encuadre(nombre, w, h, aire=0.07):
+    """Encuadra la foto en w × h sin cortar el producto.
+
+    Busca el recorte de esa proporción que contiene al producto (con un poco
+    de aire), centrado en él y dentro de la foto. Si la foto no alcanza, el
+    borde que falta se completa con la misma foto desenfocada.
+    """
+    dst = BUILD / "fotos" / f"{nombre}_{w}x{h}.jpg"
+    if dst.exists():
+        return dst
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    im = Image.open(FOTOS / f"{nombre}.jpg").convert("RGB")
+    x0, y0, x1, y1 = ROI[nombre]
+    rw, rh = (x1 - x0) * (1 + 2 * aire), (y1 - y0) * (1 + 2 * aire)
+    t = w / h
+    bw = max(rw, rh * t)
+    bh = bw / t
+    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+    # dentro de la foto si entra; si no, centrado
+    bx = min(max(cx - bw / 2, 0), im.width - bw) if bw <= im.width else (im.width - bw) / 2
+    by = min(max(cy - bh / 2, 0), im.height - bh) if bh <= im.height else (im.height - bh) / 2
+    S = 2  # se guarda al doble para que se vea nítido
+    out_w, out_h = w * S, h * S
+    k = out_w / bw
+    if bx >= 0 and by >= 0 and bx + bw <= im.width + .5 and by + bh <= im.height + .5:
+        out = im.crop((round(bx), round(by), round(bx + bw), round(by + bh))).resize((out_w, out_h), Image.LANCZOS)
+    else:
+        # fondo liso (foto de estudio) → se completa con ese color; si no, con la foto desenfocada
+        borde = [im.getpixel((x, y)) for x in range(0, im.width, 7) for y in (2, im.height - 3)]
+        borde += [im.getpixel((x, y)) for y in range(0, im.height, 7) for x in (2, im.width - 3)]
+        mediana = tuple(sorted(c[i] for c in borde)[len(borde) // 2] for i in range(3))
+        parecidos = [c for c in borde if max(abs(c[i] - mediana[i]) for i in range(3)) < 22]
+        if len(parecidos) > .6 * len(borde):
+            media = tuple(round(sum(c[i] for c in parecidos) / len(parecidos)) for i in range(3))
+            out = Image.new("RGB", (out_w, out_h), media)
+        else:
+            out = ImageOps.fit(im, (out_w, out_h), Image.LANCZOS).filter(ImageFilter.GaussianBlur(40))
+        pieza = im.resize((round(im.width * k), round(im.height * k)), Image.LANCZOS)
+        px, py = round(-bx * k), round(-by * k)
+        # fundido en los bordes de la foto que quedan dentro del recuadro
+        f = max(24, round(min(pieza.size) * .14))
+        mask = Image.new("L", pieza.size, 255)
+        mp = mask.load()
+        pw, ph_ = pieza.size
+        lados = dict(l=px > 0, r=px + pw < out_w, t=py > 0, b=py + ph_ < out_h)
+        for x in range(pw):
+            for y in (range(ph_) if (lados["l"] and x < f) or (lados["r"] and x >= pw - f) else ()):
+                d = min(x if lados["l"] else f, pw - 1 - x if lados["r"] else f)
+                mp[x, y] = min(mp[x, y], round(255 * (d / f) ** 1.4))
+        for y in range(ph_):
+            if (lados["t"] and y < f) or (lados["b"] and y >= ph_ - f):
+                d = min(y if lados["t"] else f, ph_ - 1 - y if lados["b"] else f)
+                v = round(255 * (d / f) ** 1.4)
+                for x in range(pw):
+                    mp[x, y] = min(mp[x, y], v)
+        out.paste(pieza, (px, py), mask)
+    out.save(dst, quality=92)
+    return dst
+
+
 def foto(item, w, h, radius=26):
-    src = (FOTOS / f"{item['foto']}.jpg").as_uri()
+    src = encuadre(item["foto"], w, h).as_uri()
     return (f'<div class="foto" style="width:{w}px;height:{h}px;border-radius:{radius}px">'
-            f'<img src="{src}" style="object-position:{item["pos"]}"></div>')
+            f'<img src="{src}"></div>')
 
 
 def precio(item):
@@ -228,6 +309,17 @@ def slide_filas(s):
     return titulo(s) + "".join(rows)
 
 
+def slide_duo(s):
+    cw, ph, gap = 465, 640, 30
+    cards = []
+    for i, it in enumerate(s["items"]):
+        x = 60 + i * (cw + gap)
+        cards.append(f'<div class="abs" style="left:{x}px;top:362px;width:{cw}px">{foto(it, cw, ph)}'
+                     f'<div style="margin-top:18px"><h3 style="font-size:36px">{it["nombre"]}</h3>'
+                     f'<div class="desc" style="font-size:24px">{it["texto"]}</div>{precio(it)}</div></div>')
+    return titulo(s) + "".join(cards)
+
+
 def slide_hero(s):
     big, rest = s["items"][0], s["items"][1:]
     out = [titulo(s)]
@@ -246,7 +338,7 @@ def slide_hero(s):
 
 
 def slide_portada(_):
-    fotos = [("santa_tejido", "center 30%"), ("reno_tejido", "center 40%"), ("arbol_tejido", "center 35%")]
+    fotos = [("cuenco_noel", ""), ("reno_tejido", ""), ("arbol_acanalado", "")]
     cards = []
     geo = [(70, 760, 300, 380, -4), (390, 700, 300, 420, 0), (710, 760, 300, 380, 4)]
     for (f, pos), (x, y, w, h, rot) in zip(fotos, geo):
@@ -312,7 +404,7 @@ def slide_cierre(_):
     """
 
 
-BUILDERS = dict(portada=slide_portada, grilla=slide_grilla, filas=slide_filas, hero=slide_hero, cierre=slide_cierre)
+BUILDERS = dict(portada=slide_portada, grilla=slide_grilla, duo=slide_duo, filas=slide_filas, hero=slide_hero, cierre=slide_cierre)
 
 
 def main():
@@ -326,7 +418,7 @@ def main():
     jobs = []
     for i, s in enumerate(SLIDES, 1):
         body = BUILDERS[s["tipo"]](s)
-        if s["tipo"] in ("grilla", "filas", "hero"):
+        if s["tipo"] in ("grilla", "filas", "hero", "duo"):
             body = header() + body + pie()
         html = BUILD / f"{i:02d}.html"
         html.write_text(f'<!doctype html><html lang="es"><head><meta charset="utf-8"><style>{CSS}</style></head>'
