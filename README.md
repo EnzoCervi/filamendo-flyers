@@ -45,7 +45,7 @@ La publishable key es pública (los datos los protege el login + RLS), así que 
 ### 4. Publicar en Netlify
 
 1. En [app.netlify.com](https://app.netlify.com): **Add new site → Import an existing project → GitHub** y elegí este repo.
-2. No hay que configurar nada: `netlify.toml` ya indica que se publica la carpeta `app/`, sin comando de build.
+2. En **Branch to deploy** elegí la rama donde está el gestor (hoy: `claude/cool-gauss-iuc7zu`). Lo demás no se toca: `netlify.toml` ya indica que se publica la carpeta `app/`, sin comando de build.
 3. **Deploy**. Cada push a la rama elegida vuelve a publicar.
 
 Sin GitHub: arrastrá la carpeta `app/` a [app.netlify.com/drop](https://app.netlify.com/drop).
@@ -111,7 +111,6 @@ Textos, colores y tamaños están en `src/flyers.py` (diccionarios `BENEFICIOS` 
 ## Notas
 
 - Tipografía: Source Serif 4 (Adobe, licencia SIL OFL, en `assets/fonts/`).
-- `assets/filamendo_isotipo_papel.svg` (para fondos oscuros) es el de tinta con el trazo en color papel.
 - `assets/filamendo_isotipo_tinta.svg` se reconstruyó con la geometría vectorial exacta de la espiral del sticker redondo (el SVG no llegó adjunto). Si tenés el original, reemplazalo con el mismo nombre y los ids `tinta` y `ultima-vuelta` en los trazos.
 - Las fichas del dorso usan fotos reales de los juguetes (`assets/fotos/`, recortadas con `src/recortar_fotos.py`). Los íconos, los arcos y la espiral son vectores dibujados por código.
 - Para cambiar una foto: reemplazá el JPG en `assets/fotos/` (cuadrado, mismo nombre) y corré `python3 src/flyers.py`.

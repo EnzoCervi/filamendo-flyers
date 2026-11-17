@@ -69,8 +69,8 @@ export function abrirFormulario(id) {
         <label>Seña cobrada ($)
           <input name="sena" type="number" inputmode="decimal" min="0" step="any" value="${p ? Number(p.sena) : ''}" placeholder="0">
         </label>
-        <p class="saldo ancho">Saldo: <strong data-saldo></strong>
-          <span data-pedir-sena hidden> · Para confirmar, registrá la seña (0 si no dejó).</span></p>
+        <p class="saldo ancho">Saldo: <strong data-saldo></strong>&ensp;
+          <span data-pedir-sena hidden>Para confirmar, registrá la seña (0 si no dejó).</span></p>
         <label class="ancho">Notas
           <textarea name="notas" rows="2">${esc(p?.notas)}</textarea>
         </label>

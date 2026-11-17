@@ -1,4 +1,6 @@
-/* Filamendo · gestor de pedidos. Colores y tipografía del manual de marca. */
+/* Filamendo · gestor de pedidos. Sigue el manual de marca v2:
+   tinta y papel sostienen todo; cian = marca, magenta = volantas, amarillo = resaltador de avisos (nunca texto).
+   Source Serif 4 en Regular 400, Semibold 600 e Italic. El rojo se usa solo para atrasos y errores. */
 
 :root {
   --tinta: #201E1D;
@@ -8,9 +10,6 @@
   --cian-p: #006786;
   --magenta: #D6006C;
   --amarillo: #EDBB00;
-  --verde: #3C9F4E;
-  --naranja: #EE7623;
-  --lila: #8D6CC4;
   --rojo: #C62828;
   --rojo-fondo: #FBE9E7;
   --gris: #6B6765;
@@ -21,12 +20,12 @@
 }
 
 /* Color de cada estado (chips, columnas y tarjetas) */
-[data-estado="cotizado"]   { --estado: var(--lila); }
+[data-estado="cotizado"]   { --estado: #8A8583; }
 [data-estado="confirmado"] { --estado: var(--amarillo); }
 [data-estado="en_proceso"] { --estado: var(--cian); }
-[data-estado="terminado"]  { --estado: var(--verde); }
+[data-estado="terminado"]  { --estado: var(--cian-p); }
 [data-estado="entregado"]  { --estado: var(--tinta); }
-[data-estado="cancelado"]  { --estado: #A8A3A0; }
+[data-estado="cancelado"]  { --estado: #C9C5C3; }
 
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
@@ -102,7 +101,7 @@ label > input, label > select, label > textarea { margin-top: 3px; font-weight: 
   background: var(--blanco); border-radius: 16px; box-shadow: var(--sombra); text-align: center;
 }
 .login-caja img { margin: 0 auto; }
-.login-caja h1 { font-size: 2rem; font-weight: 700; letter-spacing: -.01em; line-height: 1; }
+.login-caja h1 { font-size: 2rem; font-weight: 600; letter-spacing: -.01em; line-height: 1; }
 .login-caja label { text-align: left; }
 .error { color: var(--rojo); font-size: .92rem; font-weight: 600; }
 
@@ -110,12 +109,12 @@ label > input, label > select, label > textarea { margin-top: 3px; font-weight: 
 .barra {
   position: sticky; top: 0; z-index: 10;
   display: flex; align-items: center; gap: 20px;
-  padding: 8px max(16px, env(safe-area-inset-left));
+  padding: 6px max(16px, env(safe-area-inset-left)) 6px max(8px, env(safe-area-inset-left));
   background: var(--tinta); color: var(--papel);
 }
-.marca { display: flex; align-items: center; gap: 9px; color: inherit; text-decoration: none; }
+.marca { display: flex; align-items: center; gap: 4px; color: inherit; text-decoration: none; }
 .marca-nombre { font-size: 1.35rem; font-weight: 600; letter-spacing: .005em; }
-.marca-sub { font-size: .68rem; font-weight: 600; text-transform: uppercase; letter-spacing: .16em; color: var(--amarillo); padding-top: 4px; }
+.marca-sub { font-size: .68rem; font-weight: 600; text-transform: uppercase; letter-spacing: .16em; color: #B8B4B2; padding-top: 4px; }
 .nav { display: flex; gap: 4px; }
 .nav a {
   padding: 8px 14px; border-radius: 99px;
@@ -150,7 +149,7 @@ label > input, label > select, label > textarea { margin-top: 3px; font-weight: 
 .panel-alerta { border-left: 6px solid var(--rojo); background: var(--rojo-fondo); }
 .panel-alerta > h2 { color: var(--rojo); }
 .panel-alerta .cuenta { background: var(--rojo); color: var(--blanco); }
-.panel-tranquilo { border-left-color: var(--verde); background: var(--blanco); }
+.panel-tranquilo { border-left-color: var(--cian-p); background: var(--blanco); }
 .panel-tranquilo > h2 { color: inherit; }
 .panel-tranquilo .cuenta { background: rgb(32 30 29 / .09); color: inherit; }
 
@@ -174,8 +173,8 @@ label > input, label > select, label > textarea { margin-top: 3px; font-weight: 
 
 .resumen { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
 .plata { display: flex; flex-wrap: wrap; gap: 6px 40px; }
-.plata strong, .porcentaje { display: block; font-size: 2rem; font-weight: 700; line-height: 1.15; letter-spacing: -.01em; }
-.barra-progreso { height: 10px; margin: 12px 0 10px; border-radius: 99px; background: var(--amarillo); overflow: hidden; }
+.plata strong, .porcentaje { display: block; font-size: 2rem; font-weight: 600; line-height: 1.15; letter-spacing: -.01em; }
+.barra-progreso { height: 10px; margin: 12px 0 10px; border-radius: 99px; background: var(--linea); overflow: hidden; }
 .barra-progreso span { display: block; height: 100%; background: var(--cian-p); border-right: 2px solid var(--blanco); }
 .porcentaje { color: var(--cian-p); margin-bottom: 6px; }
 
@@ -187,7 +186,7 @@ label > input, label > select, label > textarea { margin-top: 3px; font-weight: 
   border-top: 5px solid var(--estado); color: inherit; text-decoration: none;
 }
 .tarjeta-estado .volanta { color: var(--gris); letter-spacing: .08em; min-height: 2.6em; }
-.tarjeta-estado strong { font-size: 2.2rem; font-weight: 700; line-height: 1; }
+.tarjeta-estado strong { font-size: 2.2rem; font-weight: 600; line-height: 1; }
 .tarjeta-estado:hover { outline: 2px solid var(--estado); }
 
 /* ---- Tablero ------------------------------------------------------------- */
@@ -223,7 +222,7 @@ label > input, label > select, label > textarea { margin-top: 3px; font-weight: 
 .tabla th, .tabla td { padding: 10px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--linea); }
 .tabla th.num, .tabla td.num { text-align: right; }
 .tabla th { font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: var(--gris); white-space: nowrap; }
-.tabla th button { border: 0; background: none; padding: 0; font-weight: 700; text-transform: inherit; letter-spacing: inherit; color: var(--cian-p); cursor: pointer; }
+.tabla th button { border: 0; background: none; padding: 0; font-weight: 600; text-transform: inherit; letter-spacing: inherit; color: var(--cian-p); cursor: pointer; }
 .tabla tbody tr { cursor: pointer; }
 .tabla tbody tr:hover { background: #FAF9F9; }
 .tabla tbody tr:last-child td { border-bottom: 0; }
@@ -240,7 +239,7 @@ label > input, label > select, label > textarea { margin-top: 3px; font-weight: 
 .dialogo form { display: grid; gap: 14px; padding: 18px; }
 .dialogo-chico { width: min(100% - 24px, 380px); }
 .dialogo-cabeza { display: flex; align-items: center; justify-content: space-between; }
-.dialogo-cabeza h2, .dialogo-chico h2 { font-size: 1.4rem; font-weight: 700; }
+.dialogo-cabeza h2, .dialogo-chico h2 { font-size: 1.4rem; font-weight: 600; }
 .dialogo-pie {
   display: flex; justify-content: flex-end; gap: 10px;
   position: sticky; bottom: 0; margin: 0 -18px -18px; padding: 12px 18px;
@@ -259,7 +258,7 @@ legend {
 .items { display: grid; gap: 8px; }
 .item { display: grid; grid-template-columns: 2fr 70px 1fr 1fr 42px; gap: 6px; align-items: center; }
 .saldo { font-size: 1.05rem; }
-.saldo span { color: var(--rojo); font-size: .88rem; font-weight: 600; }
+.saldo span { background: var(--amarillo); padding: 1px 6px; border-radius: 3px; font-size: .88rem; font-weight: 600; }
 
 /* ---- Avisos -------------------------------------------------------------- */
 .avisos {
