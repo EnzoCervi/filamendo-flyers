@@ -1,4 +1,70 @@
-# Filamendo · flyers para kits sensoriales
+# Filamendo
+
+Este repo tiene dos cosas: el **gestor de pedidos** (carpeta `app/` + `supabase/`) y los **flyers para kits sensoriales** (más abajo).
+
+## Gestor de pedidos
+
+Web estática (HTML + CSS + JS, sin build) con base de datos y login en Supabase.
+
+```
+app/
+  index.html          página única
+  config.js           claves de Supabase
+  css/estilos.css     colores y tipografía de la marca
+  js/app.js           arranque, login y navegación
+  js/datos.js         todo lo que habla con Supabase
+  js/vistas/          una vista por archivo: inicio, tablero, tabla, formulario
+supabase/
+  schema.sql          tablas + seguridad (RLS)
+  seed.sql            4 pedidos de ejemplo (opcional)
+```
+
+### 1. Crear la base en Supabase
+
+1. Entrá a tu proyecto en [supabase.com](https://supabase.com) → **SQL Editor** → **New query**.
+2. Pegá todo el contenido de `supabase/schema.sql` y tocá **Run**.
+
+### 2. Crear tu usuario
+
+1. **Authentication → Users → Add user → Create new user**.
+2. Poné tu email y una contraseña, y dejá tildado **Auto Confirm User**.
+3. Para que nadie más pueda registrarse: **Authentication → Sign In / Providers → Email** y desactivá **Allow new users to sign up**.
+4. (Opcional) Para cargar los 4 pedidos de ejemplo, pegá `supabase/seed.sql` en el SQL Editor y tocá **Run**.
+
+### 3. Cambiar las claves
+
+Abrí `app/config.js` y completá los dos valores, que están en Supabase → **Project Settings → API** (o **Data API** / **API Keys**):
+
+```js
+const SUPABASE_URL = "https://TU-PROYECTO.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_...";
+```
+
+La publishable key es pública (los datos los protege el login + RLS), así que puede quedar en el repo. **Nunca** pongas ahí la `secret` / `service_role`.
+
+### 4. Publicar en Netlify
+
+1. En [app.netlify.com](https://app.netlify.com): **Add new site → Import an existing project → GitHub** y elegí este repo.
+2. No hay que configurar nada: `netlify.toml` ya indica que se publica la carpeta `app/`, sin comando de build.
+3. **Deploy**. Cada push a la rama elegida vuelve a publicar.
+
+Sin GitHub: arrastrá la carpeta `app/` a [app.netlify.com/drop](https://app.netlify.com/drop).
+
+### Probarlo en tu compu
+
+```bash
+python3 -m http.server 8000 --directory app
+```
+
+Y abrí `http://localhost:8000`.
+
+### Respaldo
+
+Botón **Más** → *Exportar respaldo (JSON)* baja las tres tablas completas; *Exportar pedidos (CSV)* baja un pedido por fila, listo para Excel.
+
+---
+
+# Flyers para kits sensoriales
 
 Flyers doble faz que van dentro de los kits de juguetes sensoriales impresos en 3D.
 
@@ -45,6 +111,7 @@ Textos, colores y tamaños están en `src/flyers.py` (diccionarios `BENEFICIOS` 
 ## Notas
 
 - Tipografía: Source Serif 4 (Adobe, licencia SIL OFL, en `assets/fonts/`).
+- `assets/filamendo_isotipo_papel.svg` (para fondos oscuros) es el de tinta con el trazo en color papel.
 - `assets/filamendo_isotipo_tinta.svg` se reconstruyó con la geometría vectorial exacta de la espiral del sticker redondo (el SVG no llegó adjunto). Si tenés el original, reemplazalo con el mismo nombre y los ids `tinta` y `ultima-vuelta` en los trazos.
 - Las fichas del dorso usan fotos reales de los juguetes (`assets/fotos/`, recortadas con `src/recortar_fotos.py`). Los íconos, los arcos y la espiral son vectores dibujados por código.
 - Para cambiar una foto: reemplazá el JPG en `assets/fotos/` (cuadrado, mismo nombre) y corré `python3 src/flyers.py`.

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#201E1D">
+  <meta name="robots" content="noindex">
+  <title>Filamendo · Pedidos</title>
+  <link rel="icon" href="assets/filamendo_isotipo_tinta.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&display=swap">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <!-- Login -->
+  <main id="pantalla-login" class="login" hidden>
+    <form id="form-login" class="login-caja">
+      <img src="assets/filamendo_isotipo_tinta.svg" alt="" width="72" height="72">
+      <h1>Filamendo</h1>
+      <p class="volanta">Gestor de pedidos</p>
+      <label>Email
+        <input type="email" name="email" autocomplete="username" required>
+      </label>
+      <label>Contraseña
+        <input type="password" name="password" autocomplete="current-password" required>
+      </label>
+      <p id="login-error" class="error" role="alert" hidden></p>
+      <button class="btn btn-primario" type="submit">Entrar</button>
+    </form>
+  </main>
+
+  <!-- App -->
+  <div id="app" hidden>
+    <header class="barra">
+      <a class="marca" href="#/inicio">
+        <img src="assets/filamendo_isotipo_papel.svg" alt="" width="34" height="34">
+        <span class="marca-nombre">Filamendo</span>
+        <span class="marca-sub">Pedidos</span>
+      </a>
+      <nav class="nav" aria-label="Vistas">
+        <a href="#/inicio" data-vista="inicio">Inicio</a>
+        <a href="#/tablero" data-vista="tablero">Tablero</a>
+        <a href="#/tabla" data-vista="tabla">Tabla</a>
+      </nav>
+      <div class="barra-acciones">
+        <button id="btn-nuevo" class="btn btn-primario" type="button">+ Nuevo<span class="solo-compu"> pedido</span></button>
+        <details class="menu">
+          <summary class="btn btn-fantasma">Más</summary>
+          <div class="menu-lista">
+            <button type="button" data-exportar="json">Exportar respaldo (JSON)</button>
+            <button type="button" data-exportar="csv">Exportar pedidos (CSV)</button>
+            <button type="button" id="btn-salir">Cerrar sesión</button>
+          </div>
+        </details>
+      </div>
+    </header>
+    <main id="vista" class="vista"></main>
+  </div>
+
+  <div id="avisos" class="avisos" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

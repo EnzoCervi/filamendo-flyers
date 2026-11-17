@@ -1,0 +1,3 @@
+# El gestor de pedidos es un sitio estático: Netlify publica la carpeta app/ tal cual, sin build.
+[build]
+  publish = "app"
